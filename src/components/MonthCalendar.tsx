@@ -2,10 +2,8 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { SigEvent, spotsLeft } from "@/lib/events";
-import { StatusPill } from "./StatusPill";
-import { DifficultyRibbon } from "./DifficultyRibbon";
-import { CountUp } from "./CountUp";
+import { SigEvent } from "@/lib/events";
+import { availabilityLabel } from "@/lib/event-view";
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
@@ -80,17 +78,17 @@ export function MonthCalendar({ events }: { events: SigEvent[] }) {
   }
 
   return (
-    <div className="flex flex-col gap-6 md:grid md:grid-cols-[1fr_22rem] md:items-start md:gap-6">
-      <div className="flex flex-col gap-4">
-        <div className="flex items-center justify-between gap-3">
-          <h2 className="font-display text-2xl font-bold tracking-tight text-ink">{monthLabel}</h2>
-          <div className="flex items-center gap-1 font-mono text-xs uppercase tracking-wide">
+    <div className="flex flex-col gap-8 md:grid md:grid-cols-[1fr_22rem] md:items-start md:gap-8">
+      <div className="flex flex-col gap-5">
+        <div className="flex items-center justify-between gap-3 border-b border-[#142b4c]/35 pb-5">
+          <h2 className="font-display text-3xl font-bold tracking-[-0.02em] text-[#0b2345]">{monthLabel}</h2>
+          <div className="flex items-center gap-1 text-sm font-semibold">
             <button
               onClick={() => changeMonth(-1)}
               aria-label="Previous month"
-              className="rounded-md border border-border px-2.5 py-1.5 text-ink-soft hover:border-border-strong hover:text-ink"
+              className="px-2.5 py-1.5 text-[#40566f] hover:text-[#174fa3]"
             >
-              ←
+              ← Prev
             </button>
             <button
               onClick={() => {
@@ -98,24 +96,24 @@ export function MonthCalendar({ events }: { events: SigEvent[] }) {
                 setSelectedKey(null);
                 setSelectedEventId(null);
               }}
-              className="rounded-md border border-border px-2.5 py-1.5 text-ink-soft hover:border-border-strong hover:text-ink"
+              className="px-2.5 py-1.5 text-[#174fa3] underline decoration-2 underline-offset-4"
             >
               Today
             </button>
             <button
               onClick={() => changeMonth(1)}
               aria-label="Next month"
-              className="rounded-md border border-border px-2.5 py-1.5 text-ink-soft hover:border-border-strong hover:text-ink"
+              className="px-2.5 py-1.5 text-[#40566f] hover:text-[#174fa3]"
             >
-              →
+              Next →
             </button>
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-xl border border-border">
-          <div className="grid grid-cols-7 border-b border-border bg-surface-2">
+        <div className="overflow-hidden border border-[#142b4c]/35">
+          <div className="grid grid-cols-7 border-b border-[#142b4c]/35 bg-[#0b2345] text-[#fff7e6]">
             {WEEKDAYS.map((w) => (
-              <div key={w} className="px-2 py-2 text-center font-mono text-[0.7rem] uppercase tracking-wide text-ink-soft">
+              <div key={w} className="px-2 py-2 text-center text-xs font-bold uppercase tracking-[0.1em]">
                 {w}
               </div>
             ))}
@@ -123,7 +121,7 @@ export function MonthCalendar({ events }: { events: SigEvent[] }) {
           <div className="grid grid-cols-7">
             {cells.map((date, i) => {
               if (!date) {
-                return <div key={i} className="aspect-square border-b border-r border-border bg-surface/40 [&:nth-child(7n)]:border-r-0" />;
+                return <div key={i} className="aspect-square border-b border-r border-[#142b4c]/20 bg-[#f3eddf]/60 [&:nth-child(7n)]:border-r-0" />;
               }
               const key = dateKey(date);
               const dayEvents = eventsByDay.get(key) ?? [];
@@ -142,15 +140,15 @@ export function MonthCalendar({ events }: { events: SigEvent[] }) {
                       selectDay(key);
                     }
                   }}
-                  className={`flex aspect-square cursor-pointer flex-col items-stretch gap-1 border-b border-r border-border p-1.5 text-left transition-colors [&:nth-child(7n)]:border-r-0 sm:p-2 ${
-                    isSelected ? "bg-accent/10" : "bg-surface hover:bg-surface-2"
+                  className={`flex aspect-square cursor-pointer flex-col items-stretch gap-1 border-b border-r border-[#142b4c]/20 p-1.5 text-left transition-colors [&:nth-child(7n)]:border-r-0 sm:p-2 ${
+                    isSelected ? "bg-[#f4b942]/25" : "bg-white hover:bg-[#f3eddf]"
                   }`}
                 >
                   <span
-                    className={`font-mono text-xs tabular-nums ${
+                    className={`text-xs font-bold tabular-nums ${
                       isToday
-                        ? "inline-flex h-5 w-5 items-center justify-center rounded-full bg-accent text-accent-ink"
-                        : "text-ink-soft"
+                        ? "inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#f4b942] text-[#071a33]"
+                        : "text-[#52657c]"
                     }`}
                   >
                     {date.getDate()}
@@ -163,17 +161,17 @@ export function MonthCalendar({ events }: { events: SigEvent[] }) {
                           ev.stopPropagation();
                           selectEvent(key, e.id);
                         }}
-                        className={`truncate rounded-[4px] px-1 py-0.5 text-left font-mono text-[0.6rem] transition-colors sm:text-[0.65rem] ${
+                        className={`truncate rounded-[3px] px-1 py-0.5 text-left text-[0.62rem] font-semibold transition-colors sm:text-[0.68rem] ${
                           e.id === selectedEventId
-                            ? "bg-accent text-accent-ink"
-                            : "bg-surface-2 text-ink-soft hover:bg-border-strong"
+                            ? "bg-[#f4b942] text-[#071a33]"
+                            : "bg-[#0b2345] text-[#d6e0ee] hover:bg-[#174fa3]"
                         }`}
                       >
                         {e.title}
                       </button>
                     ))}
                     {dayEvents.length > 2 && (
-                      <span className="font-mono text-[0.6rem] text-accent">+{dayEvents.length - 2} more</span>
+                      <span className="text-[0.62rem] font-bold text-[#174fa3]">+{dayEvents.length - 2} more</span>
                     )}
                   </div>
                 </div>
@@ -183,38 +181,40 @@ export function MonthCalendar({ events }: { events: SigEvent[] }) {
         </div>
       </div>
 
-      <div className="rounded-xl border border-border bg-surface md:sticky md:top-20">
+      <div className="border border-[#142b4c]/35 bg-white md:sticky md:top-20">
         {selectedEvent ? (
           <EventDetailPanel
             event={selectedEvent}
             onBack={selectedDayEvents.length > 1 ? () => setSelectedEventId(null) : undefined}
           />
         ) : selectedDate ? (
-          <div className="flex flex-col gap-3 p-5">
-            <h3 className="font-mono text-xs uppercase tracking-widest text-ink-soft">
+          <div className="flex flex-col gap-4 p-6">
+            <h3 className="text-xs font-bold uppercase tracking-[0.12em] text-[#52657c]">
               {selectedDate.toLocaleDateString("en-SG", { weekday: "long", day: "2-digit", month: "long" })}
             </h3>
             {selectedDayEvents.length === 0 ? (
-              <p className="text-sm text-ink-soft">No events this day.</p>
+              <p className="text-sm text-[#40566f]">No events this day.</p>
             ) : (
-              <ul className="flex flex-col divide-y divide-border">
+              <ul className="flex flex-col divide-y divide-[#142b4c]/20">
                 {selectedDayEvents.map((e) => (
                   <li key={e.id}>
                     <button
                       onClick={() => setSelectedEventId(e.id)}
-                      className="group flex w-full items-center justify-between gap-3 py-3 text-left first:pt-0 last:pb-0"
+                      className="group flex w-full items-center justify-between gap-3 py-4 text-left first:pt-0 last:pb-0"
                     >
-                      <div className="flex flex-col gap-0.5">
-                        <span className="font-display text-lg font-semibold text-ink group-hover:text-accent">
+                      <div className="flex flex-col gap-1">
+                        <span className="font-display text-lg font-bold text-[#0b2345] group-hover:text-[#174fa3]">
                           {e.title}
                         </span>
-                        <span className="font-mono text-xs text-ink-soft">
+                        <span className="text-sm text-[#52657c]">
                           {new Date(e.dateISO).toLocaleTimeString("en-SG", { hour: "2-digit", minute: "2-digit", hour12: false })}
                           {" · "}
                           {e.location}
                         </span>
                       </div>
-                      <StatusPill status={e.status} />
+                      <span className="shrink-0 text-xs font-bold uppercase tracking-[0.1em] text-[#174fa3]">
+                        {availabilityLabel(e)}
+                      </span>
                     </button>
                   </li>
                 ))}
@@ -222,11 +222,9 @@ export function MonthCalendar({ events }: { events: SigEvent[] }) {
             )}
           </div>
         ) : (
-          <div className="flex flex-col items-center gap-2 p-8 text-center">
-            <p className="font-mono text-xs uppercase tracking-widest text-ink-soft">
-              <span className="text-accent">&gt;</span> Nothing selected
-            </p>
-            <p className="text-sm text-ink-soft">Pick a day to see what&apos;s on.</p>
+          <div className="flex flex-col items-center gap-2 p-10 text-center">
+            <p className="font-display text-lg font-bold text-[#0b2345]">Nothing selected</p>
+            <p className="text-sm text-[#52657c]">Pick a day to see what&apos;s on.</p>
           </div>
         )}
       </div>
@@ -235,65 +233,54 @@ export function MonthCalendar({ events }: { events: SigEvent[] }) {
 }
 
 function EventDetailPanel({ event, onBack }: { event: SigEvent; onBack?: () => void }) {
-  const left = spotsLeft(event);
-
   return (
-    <div className="flex flex-col gap-4 p-5">
+    <div className="flex flex-col gap-5 p-6">
       {onBack && (
         <button
           onClick={onBack}
-          className="w-fit font-mono text-xs uppercase tracking-widest text-ink-soft hover:text-ink"
+          className="w-fit text-xs font-bold uppercase tracking-[0.1em] text-[#52657c] hover:text-[#174fa3]"
         >
           ← Back to day
         </button>
       )}
 
-      <div className="flex items-center justify-between gap-3">
-        <span className="font-mono text-[0.65rem] uppercase tracking-widest text-ink-soft/70">
-          <span className="text-accent">&gt;</span> {event.track} · {event.code}
-        </span>
-        <StatusPill status={event.status} />
+      <div>
+        <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#174fa3]">
+          {event.track} · {event.code}
+        </p>
+        <h3 className="mt-2 text-balance font-display text-2xl font-bold leading-tight tracking-[-0.02em] text-[#0b2345]">
+          {event.title}
+        </h3>
       </div>
 
-      <h3 className="text-balance font-display text-2xl font-bold leading-tight tracking-tight text-ink">
-        {event.title}
-      </h3>
-
-      <dl className="flex flex-col gap-2 font-mono text-sm text-ink-soft">
+      <dl className="flex flex-col gap-3 text-sm">
         <div className="flex justify-between gap-3">
-          <dt>Date</dt>
-          <dd className="text-ink">
+          <dt className="font-semibold text-[#52657c]">Date</dt>
+          <dd className="text-[#0b2345]">
             {new Date(event.dateISO).toLocaleDateString("en-SG", { day: "2-digit", month: "short", year: "numeric" })}
           </dd>
         </div>
         <div className="flex justify-between gap-3">
-          <dt>Time</dt>
-          <dd className="text-ink">
+          <dt className="font-semibold text-[#52657c]">Time</dt>
+          <dd className="text-[#0b2345]">
             {new Date(event.dateISO).toLocaleTimeString("en-SG", { hour: "2-digit", minute: "2-digit", hour12: false })}
           </dd>
         </div>
         <div className="flex justify-between gap-3">
-          <dt>Location</dt>
-          <dd className="text-ink">{event.location}</dd>
-        </div>
-        <div className="flex items-center justify-between gap-3">
-          <dt>Difficulty</dt>
-          <dd><DifficultyRibbon tier={event.difficulty} /></dd>
+          <dt className="font-semibold text-[#52657c]">Location</dt>
+          <dd className="text-[#0b2345]">{event.location}</dd>
         </div>
         <div className="flex justify-between gap-3">
-          <dt>Capacity</dt>
-          <dd className="text-ink">
-            <CountUp value={event.registered} />/{event.capacity}
-            <span className="text-ink-soft"> · {event.status === "waitlist" ? `${event.waitlisted} waiting` : `${left} left`}</span>
-          </dd>
+          <dt className="font-semibold text-[#52657c]">Tickets</dt>
+          <dd className="font-semibold text-[#174fa3]">{availabilityLabel(event)}</dd>
         </div>
       </dl>
 
-      <p className="text-pretty text-sm leading-relaxed text-ink-soft">{event.description}</p>
+      <p className="text-sm leading-relaxed text-[#40566f]">{event.description}</p>
 
       <Link
         href={`/events/${event.id}`}
-        className="flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-6 py-3 font-mono text-sm font-medium uppercase tracking-widest text-accent-ink transition-opacity hover:opacity-90"
+        className="flex w-full items-center justify-center gap-2 bg-[#f4b942] px-6 py-3.5 text-sm font-bold text-[#071a33] transition-colors hover:bg-[#ffe08a]"
       >
         View &amp; register →
       </Link>

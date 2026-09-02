@@ -3,18 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { Difficulty, SigEvent, spotsLeft } from "@/lib/events";
-import { formatEventDateTime, getEventReadiness } from "@/lib/event-view";
+import { Difficulty, SigEvent } from "@/lib/events";
+import { availabilityLabel, formatEventDateTime, getEventReadiness } from "@/lib/event-view";
+import { posterFor } from "@/lib/posters";
 
 const levels: Difficulty[] = ["beginner", "intermediate", "advanced"];
-
-const posters: Record<string, string> = {
-  "kubernetes-101": "/posters/kubernetes-101.png",
-  "terraform-night": "/posters/terraform-night.png",
-  "hackcloud-2026": "/posters/hackcloud-2026.png",
-  "serverless-clinic": "/posters/serverless-clinic.png",
-  "eks-deep-dive": "/posters/eks-deep-dive.png",
-};
 
 export function MemberEventHub({ events }: { events: SigEvent[] }) {
   const [tracks, setTracks] = useState<string[]>([]);
@@ -291,17 +284,6 @@ function NoEvents({ onClear }: { onClear: () => void }) {
       </button>
     </section>
   );
-}
-
-function posterFor(event: SigEvent) {
-  return posters[event.id] ?? "/posters/hackcloud-2026.png";
-}
-
-function availabilityLabel(event: SigEvent) {
-  if (event.status === "closed") return "Sales closed";
-  if (event.status === "waitlist" || spotsLeft(event) === 0) return "Waitlist only";
-  const left = spotsLeft(event);
-  return left <= 8 ? `${left} tickets left` : "Tickets available";
 }
 
 function shortDate(dateISO: string) {

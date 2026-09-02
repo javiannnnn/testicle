@@ -34,6 +34,13 @@ export function formatEventDateTime(iso: string) {
   });
 }
 
+export function availabilityLabel(event: SigEvent) {
+  if (event.status === "closed") return "Sales closed";
+  if (event.status === "waitlist" || spotsLeft(event) === 0) return "Waitlist only";
+  const left = spotsLeft(event);
+  return left <= 8 ? `${left} tickets left` : "Tickets available";
+}
+
 export function getEventReadiness(event: SigEvent): EventReadiness {
   const left = spotsLeft(event);
   const availability =
