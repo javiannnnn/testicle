@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #fffcf7;
+  --surface: #ffffff;
+  --surface-2: #f4f0e8;
+  --border: #e4ddd0;
+  --border-strong: #cfc4b3;
+  --ink: #1c1917;
+  --ink-soft: #6b6257;
+  --accent: #1d4ed8;
+  --accent-ink: #ffffff;
+  --status-open: #34d399;
+  --status-wait: #fbbf24;
+  --status-closed: #f87171;
+  --tier-beginner: #60a5fa;
+  --tier-intermediate: #c084fc;
+  --tier-advanced: #f472b6;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-status-open: var(--status-open);
+  --color-status-wait: var(--status-wait);
+  --color-status-closed: var(--status-closed);
+  --color-tier-beginner: var(--tier-beginner);
+  --color-tier-intermediate: var(--tier-intermediate);
+  --color-tier-advanced: var(--tier-advanced);
+  --font-display: var(--font-sora);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: #f4b942;
+  color: #071a33;
+}
+
+/* thin scrollbar in the console's own palette */
+* {
+  scrollbar-color: var(--border-strong) transparent;
+  scrollbar-width: thin;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 999px;
+  border: 2px solid var(--bg);
+}
+
+.console-ground {
+  background-color: var(--bg);
+}
+
+/* terminal cursor blink — used by the live rail's status indicator */
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.cursor-blink {
+  animation: cursor-blink 1s steps(1) infinite;
+}
+
+/* registered/QR panel entrance */
+@keyframes panel-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-panel-in {
+  animation: panel-in 220ms ease-out;
+}
+
+@keyframes poster-arrival {
+  from { opacity: 0.72; transform: scale(1.025); filter: saturate(0.75); }
+  to { opacity: 1; transform: scale(1); filter: saturate(1); }
+}
+
+.cinema-poster-image {
+  animation: poster-arrival 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

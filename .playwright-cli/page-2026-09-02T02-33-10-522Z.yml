@@ -1,0 +1,99 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Cloud Club NYP" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - navigation "Main navigation" [ref=e5]:
+        - link "Events" [ref=e6] [cursor=pointer]:
+          - /url: /
+        - link "Calendar" [ref=e7] [cursor=pointer]:
+          - /url: /calendar
+        - link "EXCO workspace" [ref=e8] [cursor=pointer]:
+          - /url: /admin
+  - main [ref=e9]:
+    - generic [ref=e10]:
+      - region "Featured event" [ref=e11]:
+        - generic [ref=e12]:
+          - generic [ref=e13]:
+            - 'img "Illustrated poster artwork for Kubernetes 101: Ship Your First Pod" [ref=e14]'
+            - paragraph [ref=e16]: Cloud Club programmeSeptember—October 2026
+          - generic [ref=e17]:
+            - generic [ref=e18]:
+              - generic [ref=e19]: What's running
+              - generic [ref=e20]: CC-014
+            - paragraph [ref=e21]: Thu, 10 Sept, 02:00 pm
+            - 'heading "Kubernetes 101: Ship Your First Pod" [level=1] [ref=e22]'
+            - paragraph [ref=e23]: Hands-on session on containers, pods, and deployments. Bring a laptop with Docker Desktop installed — we'll get a local cluster running with kind and ship a first service by the end of the session.
+            - generic [ref=e24]:
+              - generic [ref=e25]:
+                - term [ref=e26]: Venue
+                - definition [ref=e27]: Blk P, Lab 2
+              - generic [ref=e28]:
+                - term [ref=e29]: Good for
+                - definition [ref=e30]: Students getting started
+              - generic [ref=e31]:
+                - term [ref=e32]: Tickets
+                - definition [ref=e33]: 6 tickets left
+            - generic [ref=e34]:
+              - link "Get ticket" [ref=e35] [cursor=pointer]:
+                - /url: /events/kubernetes-101
+              - link "Read the full programme note" [ref=e36] [cursor=pointer]:
+                - /url: /events/kubernetes-101
+      - region [ref=e37]:
+        - generic [ref=e38]:
+          - generic [ref=e39]:
+            - heading "Upcoming programme" [level=2] [ref=e40]
+            - generic [ref=e41]:
+              - generic [ref=e42]:
+                - paragraph [ref=e43]: Event type
+                - generic [ref=e44]:
+                  - button "Workshop" [ref=e45]
+                  - button "Clinic" [ref=e46]
+                  - button "Hackathon" [ref=e47]
+              - generic [ref=e48]:
+                - paragraph [ref=e49]: Experience
+                - generic [ref=e50]:
+                  - button "Beginner" [ref=e51]
+                  - button "Intermediate" [ref=e52]
+                  - button "Advanced" [ref=e53]
+          - generic [ref=e54]:
+            - article [ref=e55]:
+              - 'button "Feature Kubernetes 101: Ship Your First Pod" [pressed] [ref=e56]':
+                - generic [ref=e58]:
+                  - generic [ref=e59]: 10 Sept · Workshop
+                  - generic [ref=e60]: "Kubernetes 101: Ship Your First Pod"
+              - generic [ref=e62]:
+                - generic [ref=e63]: 6 tickets left
+                - generic [ref=e64]: beginner
+            - article [ref=e65]:
+              - 'button "Feature Infra as Code: Terraform Night" [ref=e66]':
+                - generic [ref=e68]:
+                  - generic [ref=e69]: 17 Sept · Workshop
+                  - generic [ref=e70]: "Infra as Code: Terraform Night"
+              - generic [ref=e71]:
+                - generic [ref=e72]: Waitlist only
+                - generic [ref=e73]: intermediate
+            - article [ref=e74]:
+              - button "Feature Serverless Office Hours" [ref=e75]:
+                - generic [ref=e77]:
+                  - generic [ref=e78]: 24 Sept · Clinic
+                  - generic [ref=e79]: Serverless Office Hours
+              - generic [ref=e80]:
+                - generic [ref=e81]: Tickets available
+                - generic [ref=e82]: beginner
+            - article [ref=e83]:
+              - button "Feature HackCloud 2026" [ref=e84]:
+                - generic [ref=e86]:
+                  - generic [ref=e87]: 03 Oct · Hackathon
+                  - generic [ref=e88]: HackCloud 2026
+              - generic [ref=e89]:
+                - generic [ref=e90]: Tickets available
+                - generic [ref=e91]: intermediate
+            - article [ref=e92]:
+              - 'button "Feature EKS Deep Dive: Networking & IAM" [ref=e93]':
+                - generic [ref=e95]:
+                  - generic [ref=e96]: 08 Oct · Workshop
+                  - generic [ref=e97]: "EKS Deep Dive: Networking & IAM"
+              - generic [ref=e98]:
+                - generic [ref=e99]: Tickets available
+                - generic [ref=e100]: advanced
